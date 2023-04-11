@@ -1,11 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'ForesightMiningSoftwareCorporation/rust-latest-version'
+description: 'Github action to get the latest version of a crate from a registry index'
+author: 'ForesightMiningSoftwareCorporation'
+branding:
+  icon: 'settings'
+  color: 'green'
 inputs:
-  milliseconds: # change this
+  registry:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Path to a registry index (cloned on disk)'
+  crate:
+    required: true
+    description: 'Name of the crate'
 runs:
   using: 'node16'
   main: 'dist/index.js'

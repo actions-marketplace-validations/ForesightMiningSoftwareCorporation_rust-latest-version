@@ -19,6 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
+      - name: Get crates.io registry
+        shell: bash
+        run: |
+          git clone https://github.com/rust-lang/crates.io ${{ runner.temp }}/rust-index
+      - name: Get Latest Rust Crate Version
+        uses: ForesightMiningSoftwareCorporation/rust-latest-version@main
         with:
-          milliseconds: 1000
+          registry: ${{ runner.temp }}/rust-index
+          crate: rand
