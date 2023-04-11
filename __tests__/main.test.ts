@@ -1,8 +1,5 @@
-import { wait } from '../src/wait'
 import { getLatest, getPackageFileDir } from '../src/version'
 
-import * as process from 'process'
-import * as cp from 'child_process'
 import * as path from 'path'
 import { expect, test, describe } from '@jest/globals'
 import * as fs from 'fs/promises';

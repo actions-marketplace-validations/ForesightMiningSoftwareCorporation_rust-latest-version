@@ -11,6 +11,9 @@ inputs:
   crate:
     required: true
     description: 'Name of the crate'
+outputs:
+  version:
+    description: 'Version of the crate'
 runs:
   using: 'node16'
   main: 'dist/index.js'

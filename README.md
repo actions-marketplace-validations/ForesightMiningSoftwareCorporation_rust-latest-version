@@ -4,8 +4,6 @@
 
 # rust-latest-version GitHub Action
 
-![icon](https://raw.githubusercontent.com/ForesightMiningSoftwareCorporation/rust-latest-version/main/icon.png)
-
 **rust-latest-version** is a GitHub Action that allows you to get the latest version of a crate from a registry index.
 
 ## Inputs
@@ -17,6 +15,12 @@ Path to a registry index (cloned on disk).
 ### `crate` (required)
 
 Name of the crate.
+
+## Outputs
+
+### `version`
+
+The crate version
 
 ## Usage
 
@@ -32,7 +36,6 @@ To use this action in your GitHub Actions workflow, you can add the following st
   with:
     registry: ${{ runner.temp }}/rust-index
     crate: my_crate
-
 ```
 
 Replace /path/to/registry with the actual path to your registry index, and my_crate with the name of the crate whose latest version you want to fetch.
