@@ -30,7 +30,7 @@ To use this action in your GitHub Actions workflow, you can add the following st
 - name: Get crates.io registry
   shell: bash
   run: |
-    git clone https://github.com/rust-lang/crates.io ${{ runner.temp }}/rust-index
+    git clone https://github.com/rust-lang/crates.io-index ${{ runner.temp }}/rust-index
 - name: Get Latest Rust Crate Version
   uses: ForesightMiningSoftwareCorporation/rust-latest-version@main
   with:
