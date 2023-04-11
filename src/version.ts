@@ -1,4 +1,4 @@
-import * as fs from 'fs/promises';
+import fs from 'fs';
 import * as path from 'path';
 import semver from 'semver'
 
@@ -22,10 +22,7 @@ export function getPackageFileDir(packageName: string): string {
 }
 
 export async function getLatest(crate: string, registry: string): Promise<string> {
-    try {
-        // Check if the directory exists
-        await fs.access(registry, fs.constants.F_OK);
-    } catch (error) {
+    if (!fs.existsSync(registry)) {
         // Directory does not exist
         throw new Error(`Registry index \`${registry}\` does not exists or cannot be read.`)
     }
@@ -33,13 +30,13 @@ export async function getLatest(crate: string, registry: string): Promise<string
     const crateInfoFilePath = path.join(registry, crateDir, crate)
     try {
         // Check if the directory exists
-        await fs.access(crateInfoFilePath, fs.constants.R_OK);
+        fs.accessSync(crateInfoFilePath, fs.constants.R_OK);
     } catch (error) {
         // Directory does not exist
         throw new Error(`Crate \`${crate}\` not found in the registry.`)
     }
     // Read the file
-    const fileContents = await fs.readFile(crateInfoFilePath, 'utf-8');
+    const fileContents = fs.readFileSync(crateInfoFilePath, 'utf-8');
 
     // Split the file contents into lines
     const lines = fileContents.split('\n');

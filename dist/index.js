@@ -101,7 +101,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getLatest = exports.getPackageFileDir = void 0;
-const fs = __importStar(__nccwpck_require__(3292));
+const fs_1 = __importDefault(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 const semver_1 = __importDefault(__nccwpck_require__(1383));
 function getPackageFileDir(packageName) {
@@ -123,11 +123,7 @@ function getPackageFileDir(packageName) {
 exports.getPackageFileDir = getPackageFileDir;
 function getLatest(crate, registry) {
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            // Check if the directory exists
-            yield fs.access(registry, fs.constants.F_OK);
-        }
-        catch (error) {
+        if (!fs_1.default.existsSync(registry)) {
             // Directory does not exist
             throw new Error(`Registry index \`${registry}\` does not exists or cannot be read.`);
         }
@@ -135,14 +131,14 @@ function getLatest(crate, registry) {
         const crateInfoFilePath = path.join(registry, crateDir, crate);
         try {
             // Check if the directory exists
-            yield fs.access(crateInfoFilePath, fs.constants.R_OK);
+            fs_1.default.accessSync(crateInfoFilePath, fs_1.default.constants.R_OK);
         }
         catch (error) {
             // Directory does not exist
             throw new Error(`Crate \`${crate}\` not found in the registry.`);
         }
         // Read the file
-        const fileContents = yield fs.readFile(crateInfoFilePath, 'utf-8');
+        const fileContents = fs_1.default.readFileSync(crateInfoFilePath, 'utf-8');
         // Split the file contents into lines
         const lines = fileContents.split('\n');
         // Extract the 'vers' property from each line
@@ -6061,14 +6057,6 @@ module.exports = require("events");
 
 "use strict";
 module.exports = require("fs");
-
-/***/ }),
-
-/***/ 3292:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("fs/promises");
 
 /***/ }),
 
